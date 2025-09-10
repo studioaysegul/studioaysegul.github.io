@@ -1,12 +1,312 @@
  <!DOCTYPE html>
-<html>
+<html lang="tr">
 
 <head>
-    <title>First Web Page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Güzel Bir İş - Manifest</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Animated background particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.6; }
+            50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 60px 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 800px;
+            width: 90%;
+            position: relative;
+            z-index: 2;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease-in-out infinite;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .poem {
+            font-size: 1.4rem;
+            line-height: 2.2;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        
+        .poem-line {
+            display: block;
+            margin: 15px 0;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideInUp 0.8s ease-out forwards;
+        }
+        
+        .poem-line:nth-child(1) { animation-delay: 0.2s; }
+        .poem-line:nth-child(2) { animation-delay: 0.4s; }
+        .poem-line:nth-child(3) { animation-delay: 0.6s; }
+        .poem-line:nth-child(4) { animation-delay: 0.8s; }
+        .poem-line:nth-child(5) { animation-delay: 1.0s; }
+        .poem-line:nth-child(6) { animation-delay: 1.2s; }
+        
+        @keyframes slideInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .manifest {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #e74c3c;
+            margin-top: 40px;
+            padding: 20px;
+            background: linear-gradient(45deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(231, 76, 60, 0.2);
+            animation: pulse 2s ease-in-out infinite;
+            border: 2px solid #ff6b6b;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .decorative-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .flower {
+            position: absolute;
+            font-size: 2rem;
+            animation: rotate 4s linear infinite;
+        }
+        
+        .flower:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
+        .flower:nth-child(2) { top: 20%; right: 15%; animation-delay: 1s; }
+        .flower:nth-child(3) { bottom: 30%; left: 20%; animation-delay: 2s; }
+        .flower:nth-child(4) { bottom: 15%; right: 10%; animation-delay: 3s; }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .chicken {
+            position: absolute;
+            font-size: 1.5rem;
+            animation: bounce 2s ease-in-out infinite;
+        }
+        
+        .chicken:nth-child(5) { top: 15%; left: 5%; animation-delay: 0.5s; }
+        .chicken:nth-child(6) { top: 25%; right: 5%; animation-delay: 1.5s; }
+        .chicken:nth-child(7) { bottom: 25%; left: 5%; animation-delay: 2.5s; }
+        .chicken:nth-child(8) { bottom: 15%; right: 5%; animation-delay: 3.5s; }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .tree {
+            position: absolute;
+            font-size: 2.5rem;
+            animation: sway 3s ease-in-out infinite;
+        }
+        
+        .tree:nth-child(9) { top: 5%; left: 50%; transform: translateX(-50%); }
+        .tree:nth-child(10) { bottom: 5%; left: 50%; transform: translateX(-50%); }
+        
+        @keyframes sway {
+            0%, 100% { transform: translateX(-50%) rotate(-2deg); }
+            50% { transform: translateX(-50%) rotate(2deg); }
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 20px;
+                margin: 20px;
+            }
+            
+            .title {
+                font-size: 2rem;
+            }
+            
+            .poem {
+                font-size: 1.2rem;
+                line-height: 1.8;
+            }
+            
+            .manifest {
+                font-size: 1.5rem;
+                padding: 15px;
+            }
+        }
+        
+        /* Hover effects */
+        .poem-line:hover {
+            color: #e74c3c;
+            transform: scale(1.05);
+            transition: all 0.3s ease;
+        }
+        
+        .manifest:hover {
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e, #ffa8a8);
+            transform: scale(1.02);
+            transition: all 0.3s ease;
+        }
+    </style>
 </head>
 
 <body>
-    SELAM UZAYLI!!!
+    <!-- Animated background particles -->
+    <div class="particles" id="particles"></div>
+    
+    <!-- Decorative elements -->
+    <div class="decorative-elements">
+        <div class="flower">🌸</div>
+        <div class="flower">🌺</div>
+        <div class="flower">🌻</div>
+        <div class="flower">🌷</div>
+        <div class="chicken">🐔</div>
+        <div class="chicken">🐓</div>
+        <div class="chicken">🐔</div>
+        <div class="chicken">🐓</div>
+        <div class="tree">🌳</div>
+        <div class="tree">🌲</div>
+    </div>
+    
+    <div class="container">
+        <!--<h1 class="title">Güzel Bir İş</h1>-->
+        
+        <div class="poem">
+            <span class="poem-line">TAVUKLAR ÇİÇEK AÇMIŞ</span>
+            <span class="poem-line">ELLERİNDE POĞAÇA</span>
+            <span class="poem-line">MADEM YÜZME BİLMİYORSUN</span>
+            <span class="poem-line">NEDEN ÇIKTIN AĞACA</span>
+            <span class="poem-line"></span>
+            <span class="poem-line">EN YAKIN ZAMANDA GÜZEL BİR İŞ</span>
+        </div>
+        
+        <!--<div class="manifest">(MANİFEST)</div>-->
+    </div>
+    
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Add interactive effects
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            
+            // Add click effect to poem lines
+            const poemLines = document.querySelectorAll('.poem-line');
+            poemLines.forEach(line => {
+                line.addEventListener('click', function() {
+                    this.style.color = '#ff6b6b';
+                    this.style.transform = 'scale(1.1)';
+                    setTimeout(() => {
+                        this.style.color = '';
+                        this.style.transform = '';
+                    }, 500);
+                });
+            });
+            
+            // Add sparkle effect on manifest click
+            const manifest = document.querySelector('.manifest');
+            manifest.addEventListener('click', function() {
+                this.style.background = 'linear-gradient(45deg, #ffd700, #ffed4e, #fff176)';
+                setTimeout(() => {
+                    this.style.background = '';
+                }, 1000);
+            });
+        });
+        
+        // Add keyboard interaction
+        document.addEventListener('keydown', function(e) {
+            if (e.key === ' ') {
+                document.body.style.background = 'linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%)';
+                setTimeout(() => {
+                    document.body.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                }, 2000);
+            }
+        });
+    </script>
 </body>
 
 </html>
