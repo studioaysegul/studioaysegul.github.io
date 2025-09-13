@@ -17,52 +17,132 @@
         
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: white;
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            margin: 0;
+            padding: 0;
             overflow-x: hidden;
-            position: relative;
         }
         
-        /* Animated background particles */
-        .particles {
+        /* Header Styles */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-center {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .hamburger-menu {
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+            z-index: 1001;
+        }
+        
+        .hamburger-line {
+            width: 24px;
+            height: 3px;
+            background: black;
+            transition: all 0.3s ease;
+        }
+        
+        /* Sliding Menu */
+        .slide-menu {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 300px;
+            height: 100vh;
+            background: white;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            transition: left 0.3s ease;
+            z-index: 1000;
+            padding: 80px 40px 40px 40px;
+        }
+        
+        .slide-menu.active {
+            left: 0;
+        }
+        
+        .slide-menu-item {
+            display: block;
+            padding: 20px 0;
+            font-size: 18px;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #333;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            transition: color 0.3s ease;
+        }
+        
+        .slide-menu-item:hover {
+            color: #666;
+        }
+        
+        .slide-menu-item:last-child {
+            border-bottom: none;
+        }
+        
+        /* Overlay */
+        .menu-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none;
-            z-index: 1;
+            background: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
         }
         
-        .particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.6);
-            border-radius: 50%;
-            animation: float 6s ease-in-out infinite;
+        .menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
         }
         
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.6; }
-            50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            align-items: center;
         }
         
-        .container {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 60px 40px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            max-width: 800px;
-            width: 90%;
-            position: relative;
-            z-index: 2;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+        .nav-link {
+            font-size: 14px;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: black;
+        }
+        
+        /* Main content area */
+        .main-content {
+            margin-top: 80px;
+            padding: 40px;
+            min-height: calc(100vh - 80px);
         }
         
         .title {
@@ -344,6 +424,23 @@
         
         /* Mobile responsive adjustments */
         @media (max-width: 768px) {
+            .header {
+                padding: 15px 20px;
+            }
+            
+            .nav-links {
+                gap: 20px;
+            }
+            
+            .nav-link {
+                font-size: 12px;
+            }
+            
+            .main-content {
+                margin-top: 70px;
+                padding: 20px;
+            }
+            
             .intro-title {
                 font-size: 3.5rem;
                 letter-spacing: -0.01em;
@@ -357,6 +454,14 @@
         }
         
         @media (max-width: 480px) {
+            .nav-links {
+                gap: 15px;
+            }
+            
+            .nav-link {
+                font-size: 11px;
+            }
+            
             .intro-title {
                 font-size: 2.8rem;
                 letter-spacing: 0em;
@@ -371,6 +476,14 @@
         }
         
         @media (max-width: 360px) {
+            .nav-links {
+                gap: 10px;
+            }
+            
+            .nav-link {
+                font-size: 10px;
+            }
+            
             .intro-title {
                 font-size: 2.2rem;
                 letter-spacing: 0.01em;
@@ -409,37 +522,39 @@
         </div>
     </div>
     
-    <!-- Animated background particles -->
-    <div class="particles" id="particles"></div>
-    
-    <!-- Decorative elements -->
-    <div class="decorative-elements">
-        <div class="flower">🌸</div>
-        <div class="flower">🌺</div>
-        <div class="flower">🌻</div>
-        <div class="flower">🌷</div>
-        <div class="chicken">🐔</div>
-        <div class="chicken">🐓</div>
-        <div class="chicken">🐔</div>
-        <div class="chicken">🐓</div>
-        <div class="tree">🌳</div>
-        <div class="tree">🌲</div>
-    </div>
-    
-    <div class="container">
-        <!--<h1 class="title">Güzel Bir İş</h1>-->
-        
-        <div class="poem">
-            <span class="poem-line">TAVUKLAR ÇİÇEK AÇMIŞ</span>
-            <span class="poem-line">ELLERİNDE POĞAÇA</span>
-            <span class="poem-line">MADEM YÜZME BİLMİYORSUN</span>
-            <span class="poem-line">NEDEN ÇIKTIN AĞACA</span>
-            <span class="poem-line"></span>
-            <span class="poem-line">EN YAKIN ZAMANDA GÜZEL BİR İŞ</span>
+    <!-- Main Header -->
+    <header class="header">
+        <div class="hamburger-menu" id="hamburgerMenu">
+            <div class="hamburger-line"></div>
+            <div class="hamburger-line"></div>
+            <div class="hamburger-line"></div>
         </div>
         
-        <!--<div class="manifest">(MANİFEST)</div>-->
+        <div class="header-center">
+            <nav class="nav-links">
+                <a href="#" class="nav-link">ABOUT ME</a>
+                <a href="#" class="nav-link">PROJECTS</a>
+                <a href="#" class="nav-link">ILLUSTRATIONS</a>            
+            </nav>
+        </div>
+        
+        <div></div> <!-- Empty div for spacing -->
+    </header>
+    
+    <!-- Sliding Menu -->
+    <div class="slide-menu" id="slideMenu">
+        <a href="#" class="slide-menu-item">About Me</a>
+        <a href="#" class="slide-menu-item">Projects</a>
+        <a href="#" class="slide-menu-item">Illustrations</a>
     </div>
+    
+    <!-- Menu Overlay -->
+    <div class="menu-overlay" id="menuOverlay"></div>
+    
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <!-- Content will be added here -->
+    </main>
     
     <script>
         // Create floating particles
@@ -460,42 +575,33 @@
         
         // Add interactive effects
         document.addEventListener('DOMContentLoaded', function() {
-            createParticles();
-            
             // Intro animation is now handled by CSS animation
             // No JavaScript timeout needed - CSS handles the fade out automatically
             
-            // Add click effect to poem lines
-            const poemLines = document.querySelectorAll('.poem-line');
-            poemLines.forEach(line => {
-                line.addEventListener('click', function() {
-                    this.style.color = '#ff6b6b';
-                    this.style.transform = 'scale(1.1)';
-                    setTimeout(() => {
-                        this.style.color = '';
-                        this.style.transform = '';
-                    }, 500);
-                });
+            // Hamburger menu functionality
+            const hamburgerMenu = document.getElementById('hamburgerMenu');
+            const slideMenu = document.getElementById('slideMenu');
+            const menuOverlay = document.getElementById('menuOverlay');
+            
+            hamburgerMenu.addEventListener('click', function() {
+                slideMenu.classList.toggle('active');
+                menuOverlay.classList.toggle('active');
             });
             
-            // Add sparkle effect on manifest click
-            const manifest = document.querySelector('.manifest');
-            manifest.addEventListener('click', function() {
-                this.style.background = 'linear-gradient(45deg, #ffd700, #ffed4e, #fff176)';
-                setTimeout(() => {
-                    this.style.background = '';
-                }, 1000);
+            // Close menu when clicking overlay
+            menuOverlay.addEventListener('click', function() {
+                slideMenu.classList.remove('active');
+                menuOverlay.classList.remove('active');
             });
-        });
-        
-        // Add keyboard interaction
-        document.addEventListener('keydown', function(e) {
-            if (e.key === ' ') {
-                document.body.style.background = 'linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%)';
-                setTimeout(() => {
-                    document.body.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
-                }, 2000);
-            }
+            
+            // Close menu when clicking menu items
+            const menuItems = document.querySelectorAll('.slide-menu-item');
+            menuItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    slideMenu.classList.remove('active');
+                    menuOverlay.classList.remove('active');
+                });
+            });
         });
     </script>
 </body>
