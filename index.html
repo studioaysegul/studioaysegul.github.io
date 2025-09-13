@@ -60,7 +60,7 @@
             transition: all 0.3s ease;
         }
         
-        /* Sliding Menu */
+        /* Left Sliding Menu */
         .slide-menu {
             position: fixed;
             top: 0;
@@ -70,7 +70,7 @@
             background: white;
             box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
             transition: left 0.3s ease;
-            z-index: 1000;
+            z-index: 1001;
             padding: 80px 40px 40px 40px;
         }
         
@@ -81,25 +81,20 @@
         .slide-menu-item {
             display: block;
             padding: 20px 0;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 400;
             letter-spacing: 0.1em;
             text-transform: uppercase;
-            color: #333;
+            color: #666;
             text-decoration: none;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
             transition: color 0.3s ease;
         }
         
         .slide-menu-item:hover {
-            color: #666;
+            color: #333;
         }
         
-        .slide-menu-item:last-child {
-            border-bottom: none;
-        }
-        
-        /* Overlay */
+        /* Dark Overlay */
         .menu-overlay {
             position: fixed;
             top: 0;
@@ -110,7 +105,7 @@
             opacity: 0;
             visibility: hidden;
             transition: all 0.3s ease;
-            z-index: 999;
+            z-index: 1000;
         }
         
         .menu-overlay.active {
@@ -541,14 +536,14 @@
         <div></div> <!-- Empty div for spacing -->
     </header>
     
-    <!-- Sliding Menu -->
+    <!-- Left Sliding Menu -->
     <div class="slide-menu" id="slideMenu">
         <a href="#" class="slide-menu-item">About Me</a>
         <a href="#" class="slide-menu-item">Projects</a>
         <a href="#" class="slide-menu-item">Illustrations</a>
     </div>
     
-    <!-- Menu Overlay -->
+    <!-- Dark Overlay -->
     <div class="menu-overlay" id="menuOverlay"></div>
     
     <!-- Main Content Area -->
@@ -578,7 +573,7 @@
             // Intro animation is now handled by CSS animation
             // No JavaScript timeout needed - CSS handles the fade out automatically
             
-            // Hamburger menu functionality
+            // Left sliding hamburger menu functionality
             const hamburgerMenu = document.getElementById('hamburgerMenu');
             const slideMenu = document.getElementById('slideMenu');
             const menuOverlay = document.getElementById('menuOverlay');
