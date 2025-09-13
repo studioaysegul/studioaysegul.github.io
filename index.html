@@ -342,18 +342,57 @@
             }
         }
         
-        /* Responsive adjustments */
+        /* Mobile responsive adjustments */
         @media (max-width: 768px) {
             .intro-title {
-                font-size: 4rem;
+                font-size: 3.5rem;
+                letter-spacing: -0.01em;
+                line-height: 0.85;
             }
             
-            .intro-subtitle {
-                font-size: 0.9rem;
+            .loading-bar {
+                width: 150px;
+                bottom: 40px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .intro-title {
+                font-size: 2.8rem;
+                letter-spacing: 0em;
+                line-height: 0.8;
+                padding: 0 20px;
             }
             
-            .intro-tagline {
-                font-size: 0.8rem;
+            .loading-bar {
+                width: 120px;
+                bottom: 30px;
+            }
+        }
+        
+        @media (max-width: 360px) {
+            .intro-title {
+                font-size: 2.2rem;
+                letter-spacing: 0.01em;
+                line-height: 0.75;
+                padding: 0 15px;
+            }
+            
+            .loading-bar {
+                width: 100px;
+                bottom: 25px;
+            }
+        }
+        
+        /* Landscape mobile adjustments */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .intro-title {
+                font-size: 2.5rem;
+                margin-bottom: 10px;
+            }
+            
+            .loading-bar {
+                bottom: 20px;
             }
         }
     </style>
