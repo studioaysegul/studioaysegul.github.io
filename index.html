@@ -132,12 +132,161 @@
         .nav-link:hover {
             color: black;
         }
+
+        .nav-link.active {
+            color: black;
+            font-weight: 600;
+        }
         
         /* Main content area */
         .main-content {
             margin-top: 80px;
             padding: 40px;
             min-height: calc(100vh - 80px);
+        }
+
+        /* Page Content Management */
+        .page-content {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .page-content.active {
+            display: block;
+            opacity: 1;
+        }
+
+
+        /* About Page Styles */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 100px;
+            align-items: start;
+            margin-bottom: 120px;
+            min-height: 80vh;
+        }
+
+        .profile-section {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .profile-image {
+            width: 450px;
+            height: 600px;
+            border-radius: 0;
+            overflow: hidden;
+            box-shadow: none;
+            background: #f0f0f0;
+            position: relative;
+            transition: all 0.4s ease;
+            margin-bottom: 40px;
+        }
+
+        .profile-image:hover {
+            transform: scale(1.02);
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .profile-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .profile-image:hover .profile-overlay {
+            opacity: 1;
+        }
+
+        .about-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            padding: 60px 0 0 0;
+        }
+
+        .about-description {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #333;
+            margin-bottom: 60px;
+            max-width: 500px;
+        }
+
+        .about-description p {
+            margin-bottom: 25px;
+        }
+
+        /* Projects Page Styles */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .project-card {
+            background: #FFFFBF;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .project-description {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .project-link {
+            display: inline-block;
+            background: #333;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+
+        .project-link:hover {
+            background: #000;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
         
         .title {
@@ -436,6 +585,28 @@
                 margin-top: 70px;
                 padding: 20px;
             }
+
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 60px;
+                margin-bottom: 80px;
+                min-height: auto;
+            }
+
+            .profile-image {
+                width: 350px;
+                height: 450px;
+            }
+
+            .about-description {
+                margin-bottom: 40px;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
             
             .intro-title {
                 font-size: 3.5rem;
@@ -457,6 +628,12 @@
             .nav-link {
                 font-size: 10px;
                 white-space: nowrap;
+            }
+
+
+            .profile-image {
+                width: 280px;
+                height: 360px;
             }
             
             .intro-title {
@@ -481,6 +658,7 @@
                 font-size: 9px;
                 white-space: nowrap;
             }
+
             
             .intro-title {
                 font-size: 2.2rem;
@@ -530,8 +708,8 @@
         
         <div class="header-center">
             <nav class="nav-links">
-                <a href="about.html" class="nav-link">ABOUT ME</a>
-                <a href="projects.html" class="nav-link">PROJECTS</a>
+                <a href="#" class="nav-link active" data-page="about">ABOUT ME</a>
+                <a href="#" class="nav-link" data-page="projects">PROJECTS</a>
                 <a href="#" class="nav-link">ILLUSTRATIONS</a>            
             </nav>
         </div>
@@ -541,8 +719,8 @@
     
     <!-- Left Sliding Menu -->
     <div class="slide-menu" id="slideMenu">
-        <a href="about.html" class="slide-menu-item">About Me</a>
-        <a href="projects.html" class="slide-menu-item">Projects</a>
+        <a href="#" class="slide-menu-item active" data-page="about">About Me</a>
+        <a href="#" class="slide-menu-item" data-page="projects">Projects</a>
         <a href="#" class="slide-menu-item">Illustratıons</a>
     </div>
     
@@ -551,7 +729,70 @@
     
     <!-- Main Content Area -->
     <main class="main-content">
-        <!-- Content will be added here -->
+        <!-- About Page Content -->
+        <div id="about-page" class="page-content active">
+            <div class="about-content">
+                <div class="profile-section">
+                    <div class="profile-image">
+                        <img src="img/profile-image.jpg" alt="aysegul.studio">
+                        <div class="profile-overlay"></div>
+                    </div>
+                </div>
+                
+                <div class="about-text">
+                    <div class="about-description">
+                        <p>I am a BIM Architect/Specialist with a focus on BIM development. Although my practical experience initially lay outside the field, I dedicated myself to enhancing work systems through the implementation of Building Information Methodology.</p>
+                        
+                        <p>I possess a strong understanding of BIM standards and protocols and have actively contributed to integrated projects involving various disciplines.</p>
+                        
+                        <p>With a diligent work ethic, I consistently strive for excellence in architectural engineering. I am eager to take on challenging roles within a dynamic team and am always open to further learning opportunities.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Projects Page Content -->
+        <div id="projects-page" class="page-content">
+            <div class="projects-grid">
+                <div class="project-card">
+                    <h3 class="project-title">Residental Apartments</h3>
+                    <p class="project-description">A concept design developed on a 4,450 m² plot featuring two residential blocks and a commercial unit at the ground level.
+                        Modeled in Autodesk Revit, this project aims to integrate daily living with convenient access to services — all within a unified design approach.</p>
+                    <a href="https://www.behance.net/gallery/234581909/RESIDENTAL-APARTMENT-BUILDING" class="project-link" target="_blank">VIEW PROJECT</a>
+                </div>
+                
+                <div class="project-card">
+                    <h3 class="project-title">Town Complex</h3>
+                    <p class="project-description">This all process project, covering approximately 21,000 m², includes apartments, villas, a club restaurant, and a hotel, designed with a focus on functionality and aesthetics. 🌿
+                        The entire project was modeled and analyzed in Revit, ensuring precision and efficiency throughout the design process.</p>
+                    <a href="https://www.behance.net/gallery/234583045/Town-Complex" class="project-link" target="_blank">VIEW PROJECT</a>
+                </div>
+                
+                <div class="project-card">
+                    <h3 class="project-title">Multifunctional Building</h3>
+                    <p class="project-description">The complex building includes shopping, hotel, and residential areas.</p>
+                    <a href="https://www.behance.net/gallery/234584675/Multifunctional-Building" class="project-link" target="_blank">VIEW PROJECT</a>
+                </div>
+                
+                <div class="project-card">
+                    <h3 class="project-title">Winter Hotel Reconstruction</h3>
+                    <p class="project-description">The existing structure's capacity has been expanded, with a multifunctional addition designed to enhance guest experience and functionality. Modernization of preserved sections integrates seamlessly with new facilities, combining heritage with contemporary design.</p>
+                    <a href="https://www.behance.net/gallery/234583999/WINTER-HOTEL-RECONSTUCTION" class="project-link" target="_blank">VIEW PROJECT</a>
+                </div>
+                
+                <div class="project-card">
+                    <h3 class="project-title">Private Villa</h3>
+                    <p class="project-description">My most recent role was as a BIM Coordinator for a project in Riyadh. I was involved in every stage of the project (01 - Al Diwaniyah), from initial design to HVAC decisions, and from electrical design to implementation drawings. The project is currently in the construction phase, and I am actively involved in its progress.</p>
+                    <a href="https://www.behance.net/gallery/234585225/Private-Villa" class="project-link" target="_blank">VIEW PROJECT</a>
+                </div>
+                
+                <div class="project-card">
+                    <h3 class="project-title">Hotel</h3>
+                    <p class="project-description">Hotel facade design. Ceramics. More detail, more accurate BOQ</p>
+                    <a href="https://www.behance.net/gallery/234585489/Facade-Design-Detail" class="project-link" target="_blank">VIEW PROJECT</a>
+                </div>
+            </div>
+        </div>
     </main>
     
     <script>
@@ -575,6 +816,46 @@
         document.addEventListener('DOMContentLoaded', function() {
             // Intro animation is now handled by CSS animation
             // No JavaScript timeout needed - CSS handles the fade out automatically
+            
+            // Page navigation functionality
+            function showPage(pageId) {
+                // Hide all pages
+                const allPages = document.querySelectorAll('.page-content');
+                allPages.forEach(page => {
+                    page.classList.remove('active');
+                });
+                
+                // Show selected page
+                const targetPage = document.getElementById(pageId + '-page');
+                if (targetPage) {
+                    targetPage.classList.add('active');
+                }
+                
+                // Update active nav link
+                const allNavLinks = document.querySelectorAll('.nav-link, .slide-menu-item');
+                allNavLinks.forEach(link => {
+                    link.classList.remove('active');
+                });
+                
+                const activeLinks = document.querySelectorAll(`[data-page="${pageId}"]`);
+                activeLinks.forEach(link => {
+                    link.classList.add('active');
+                });
+            }
+            
+            // Navigation link event listeners
+            const navLinks = document.querySelectorAll('.nav-link[data-page], .slide-menu-item[data-page]');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const pageId = this.getAttribute('data-page');
+                    showPage(pageId);
+                    
+                    // Close mobile menu if open
+                    slideMenu.classList.remove('active');
+                    menuOverlay.classList.remove('active');
+                });
+            });
             
             // Left sliding hamburger menu functionality
             const hamburgerMenu = document.getElementById('hamburgerMenu');
@@ -600,6 +881,9 @@
                     menuOverlay.classList.remove('active');
                 });
             });
+            
+            // Initialize with about page active
+            showPage('about');
         });
     </script>
 </body>
