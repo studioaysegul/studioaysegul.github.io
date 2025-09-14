@@ -22,6 +22,38 @@
             margin: 0;
             padding: 0;
             overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Parallax Background Layers */
+        .parallax-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 120%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .parallax-layer-1 {
+            background: linear-gradient(135deg, rgba(240, 240, 240, 0.3) 0%, rgba(250, 250, 250, 0.2) 100%);
+            transform: translateZ(-3px) scale(1.1);
+        }
+
+        .parallax-layer-2 {
+            background: linear-gradient(45deg, rgba(230, 230, 230, 0.2) 0%, rgba(245, 245, 245, 0.1) 100%);
+            transform: translateZ(-2px) scale(1.05);
+        }
+
+        .parallax-layer-3 {
+            background: linear-gradient(225deg, rgba(220, 220, 220, 0.15) 0%, rgba(240, 240, 240, 0.05) 100%);
+            transform: translateZ(-1px) scale(1.02);
+        }
+
+        .parallax-layer-4 {
+            background: linear-gradient(315deg, rgba(210, 210, 210, 0.1) 0%, rgba(235, 235, 235, 0.03) 100%);
+            transform: translateZ(0px) scale(1);
         }
         
         /* Header Styles */
@@ -723,6 +755,12 @@
 </head>
 
 <body>
+    <!-- Parallax Background Layers -->
+    <div class="parallax-layer parallax-layer-1" id="parallaxLayer1"></div>
+    <div class="parallax-layer parallax-layer-2" id="parallaxLayer2"></div>
+    <div class="parallax-layer parallax-layer-3" id="parallaxLayer3"></div>
+    <div class="parallax-layer parallax-layer-4" id="parallaxLayer4"></div>
+    
     <!-- BIG-style Intro Animation Overlay -->
     <div class="intro-overlay" id="introOverlay">
         <div class="intro-content">
@@ -933,6 +971,28 @@
             
             // Initialize with about page active
             showPage('about');
+
+            // Parallax scroll effect
+            function updateParallax() {
+                const scrolled = window.pageYOffset;
+                
+                // Different speeds for different layers (closer layers move faster)
+                const layer1 = document.getElementById('parallaxLayer1');
+                const layer2 = document.getElementById('parallaxLayer2');
+                const layer3 = document.getElementById('parallaxLayer3');
+                const layer4 = document.getElementById('parallaxLayer4');
+                
+                if (layer1) layer1.style.transform = `translateY(${scrolled * 0.1}px) translateZ(-3px) scale(1.1)`;
+                if (layer2) layer2.style.transform = `translateY(${scrolled * 0.2}px) translateZ(-2px) scale(1.05)`;
+                if (layer3) layer3.style.transform = `translateY(${scrolled * 0.3}px) translateZ(-1px) scale(1.02)`;
+                if (layer4) layer4.style.transform = `translateY(${scrolled * 0.4}px) translateZ(0px) scale(1)`;
+            }
+            
+            // Add scroll event listener for parallax
+            window.addEventListener('scroll', updateParallax);
+            
+            // Initial parallax update
+            updateParallax();
 
             // Magnetic hover effect for navigation links
             const magneticNavLinks = document.querySelectorAll('.nav-link');
