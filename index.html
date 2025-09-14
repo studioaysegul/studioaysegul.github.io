@@ -126,16 +126,40 @@
             text-transform: uppercase;
             color: #666;
             text-decoration: none;
-            transition: color 0.3s ease;
+            transition: color 0.3s ease, transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            display: inline-block;
+            padding: 8px 0;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #333;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.18s ease;
         }
         
         .nav-link:hover {
             color: black;
         }
-
+        
+        .nav-link:hover::after {
+            transform: scaleX(1);
+        }
+        
         .nav-link.active {
             color: black;
             font-weight: 600;
+        }
+        
+        .nav-link.active::after {
+            transform: scaleX(1);
         }
         
         /* Main content area */
@@ -287,6 +311,16 @@
             background: #000;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Illustrations Page Styles */
+        .illustrations-content {
+            text-align: center;
+            padding: 100px 0;
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .title {
@@ -710,7 +744,7 @@
             <nav class="nav-links">
                 <a href="#" class="nav-link active" data-page="about">ABOUT ME</a>
                 <a href="#" class="nav-link" data-page="projects">PROJECTS</a>
-                <a href="#" class="nav-link">ILLUSTRATIONS</a>            
+                <a href="#" class="nav-link" data-page="illustrations">ILLUSTRATIONS</a>            
             </nav>
         </div>
         
@@ -721,7 +755,7 @@
     <div class="slide-menu" id="slideMenu">
         <a href="#" class="slide-menu-item active" data-page="about">About Me</a>
         <a href="#" class="slide-menu-item" data-page="projects">Projects</a>
-        <a href="#" class="slide-menu-item">Illustratıons</a>
+        <a href="#" class="slide-menu-item" data-page="illustrations">Illustratıons</a>
     </div>
     
     <!-- Dark Overlay -->
@@ -793,6 +827,13 @@
                 </div>
             </div>
         </div>
+
+        <!-- Illustrations Page Content -->
+        <div id="illustrations-page" class="page-content">
+            <div class="illustrations-content">
+                <!-- Empty div for illustrations -->
+            </div>
+        </div>
     </main>
     
     <script>
@@ -849,7 +890,14 @@
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
                     const pageId = this.getAttribute('data-page');
-                    showPage(pageId);
+                    
+                    // Reset transform before navigation
+                    this.style.transform = 'translate3d(0, 0, 0)';
+                    
+                    // Small delay to ensure transform is reset
+                    setTimeout(() => {
+                        showPage(pageId);
+                    }, 10);
                     
                     // Close mobile menu if open
                     slideMenu.classList.remove('active');
@@ -884,6 +932,35 @@
             
             // Initialize with about page active
             showPage('about');
+
+            // Magnetic hover effect for navigation links
+            const magneticNavLinks = document.querySelectorAll('.nav-link');
+            
+            magneticNavLinks.forEach(link => {
+                link.addEventListener('mousemove', function(e) {
+                    const rect = this.getBoundingClientRect();
+                    const centerX = rect.left + rect.width / 2;
+                    const centerY = rect.top + rect.height / 2;
+                    
+                    const mouseX = e.clientX;
+                    const mouseY = e.clientY;
+                    
+                    const deltaX = (mouseX - centerX) * 0.15;
+                    const deltaY = (mouseY - centerY) * 0.15;
+                    
+                    // Limit movement to 6-8px
+                    const maxMove = 8;
+                    const moveX = Math.max(-maxMove, Math.min(maxMove, deltaX));
+                    const moveY = Math.max(-maxMove, Math.min(maxMove, deltaY));
+                    
+                    // Use transform3d for better performance and avoid layout issues
+                    this.style.transform = `translate3d(${moveX}px, ${moveY}px, 0)`;
+                });
+                
+                link.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translate3d(0, 0, 0)';
+                });
+            });
         });
     </script>
 </body>
